@@ -24,13 +24,15 @@ namespace MediaBrowser.Controller.Subtitles
         /// <param name="isPerfectMatch">Require perfect match.</param>
         /// <param name="isAutomated">Request is automated.</param>
         /// <param name="cancellationToken">CancellationToken to use for the operation.</param>
+        /// <param name="manualQuery">Optional free-text query supplied by the user.</param>
         /// <returns>Subtitles, wrapped in task.</returns>
         Task<RemoteSubtitleInfo[]> SearchSubtitles(
             Video video,
             string language,
             bool? isPerfectMatch,
             bool isAutomated,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken,
+            string? manualQuery = null);
 
         /// <summary>
         /// Searches the subtitles.

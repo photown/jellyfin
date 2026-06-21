@@ -308,7 +308,7 @@ namespace MediaBrowser.Providers.Subtitles
         }
 
         /// <inheritdoc />
-        public Task<RemoteSubtitleInfo[]> SearchSubtitles(Video video, string language, bool? isPerfectMatch, bool isAutomated, CancellationToken cancellationToken)
+        public Task<RemoteSubtitleInfo[]> SearchSubtitles(Video video, string language, bool? isPerfectMatch, bool isAutomated, CancellationToken cancellationToken, string? manualQuery = null)
         {
             if (video.VideoType != VideoType.VideoFile)
             {
@@ -343,7 +343,8 @@ namespace MediaBrowser.Providers.Subtitles
                 ProviderIds = video.ProviderIds,
                 RuntimeTicks = video.RunTimeTicks,
                 IsPerfectMatch = isPerfectMatch ?? false,
-                IsAutomated = isAutomated
+                IsAutomated = isAutomated,
+                ManualQuery = manualQuery
             };
 
             if (video is Episode episode)

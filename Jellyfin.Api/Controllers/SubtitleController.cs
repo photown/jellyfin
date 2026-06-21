@@ -112,6 +112,7 @@ public class SubtitleController : BaseJellyfinApiController
     /// <param name="itemId">The item id.</param>
     /// <param name="language">The language of the subtitles.</param>
     /// <param name="isPerfectMatch">Optional. Only show subtitles which are a perfect match.</param>
+    /// <param name="manualQuery">Optional. A free-text query to use instead of automatic title/ID lookup.</param>
     /// <response code="200">Subtitles retrieved.</response>
     /// <response code="404">Item not found.</response>
     /// <returns>An array of <see cref="RemoteSubtitleInfo"/>.</returns>
@@ -122,7 +123,8 @@ public class SubtitleController : BaseJellyfinApiController
     public async Task<ActionResult<IEnumerable<RemoteSubtitleInfo>>> SearchRemoteSubtitles(
         [FromRoute, Required] Guid itemId,
         [FromRoute, Required] string language,
-        [FromQuery] bool? isPerfectMatch)
+        [FromQuery] bool? isPerfectMatch,
+        [FromQuery] string? manualQuery = null)
     {
         var item = _libraryManager.GetItemById<Video>(itemId, User.GetUserId());
         if (item is null)
@@ -130,7 +132,7 @@ public class SubtitleController : BaseJellyfinApiController
             return NotFound();
         }
 
-        return await _subtitleManager.SearchSubtitles(item, language, isPerfectMatch, false, CancellationToken.None).ConfigureAwait(false);
+        return await _subtitleManager.SearchSubtitles(item, language, isPerfectMatch, false, CancellationToken.None, manualQuery).ConfigureAwait(false);
     }
 
     /// <summary>

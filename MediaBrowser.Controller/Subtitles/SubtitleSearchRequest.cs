@@ -53,5 +53,7 @@ namespace MediaBrowser.Controller.Subtitles
         public string[] SubtitleFetcherOrder { get; set; }
 
         public bool IsAutomated { get; set; }
+
+        public string ManualQuery { get; set; }
     }
 }
